@@ -28,8 +28,3 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 springdoc:
   default-flat-param-object: true
-aliyun:
-  sms:
-    access-key-id: LTAI5tDdqrDKk4sR5Zu3coQZ
-    access-key-secret: Uc70CvhKOtl8ZiT7WE7xqobSsN5tEY
-    endpoint: dysmsapi.aliyuncs.com

@@ -1,21 +1,16 @@
 package com.atguigu.lease.web.admin.service.impl;
 
-import ch.qos.logback.classic.spi.EventArgUtil;
 import com.atguigu.lease.common.constant.RedisConstant;
 import com.atguigu.lease.common.exception.LeaseException;
 import com.atguigu.lease.common.result.ResultCodeEnum;
 import com.atguigu.lease.common.utils.JwtUtil;
-import com.atguigu.lease.model.entity.SystemPost;
 import com.atguigu.lease.model.entity.SystemUser;
 import com.atguigu.lease.model.enums.BaseStatus;
 import com.atguigu.lease.web.admin.mapper.SystemUserMapper;
 import com.atguigu.lease.web.admin.service.LoginService;
-import com.atguigu.lease.web.admin.service.SystemUserService;
 import com.atguigu.lease.web.admin.vo.login.CaptchaVo;
 import com.atguigu.lease.web.admin.vo.login.LoginVo;
 import com.atguigu.lease.web.admin.vo.system.user.SystemUserInfoVo;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.wf.captcha.SpecCaptcha;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private SystemUserService systemUserService;
     @Autowired
     private SystemUserMapper systemUserMapper;
 
@@ -69,7 +62,6 @@ public class LoginServiceImpl implements LoginService {
         if (!systemUser.getPassword().equals(DigestUtils.md5Hex(loginVo.getPassword()))){
             throw new LeaseException(ResultCodeEnum.ADMIN_ACCOUNT_ERROR);
         }
-
         return JwtUtil.createToken(systemUser.getId(),systemUser.getName());
 
     }
